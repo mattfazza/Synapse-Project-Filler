@@ -1,0 +1,8 @@
+{
+    "project": "TREAD_AD_POC_0.4",
+    "genes": ["MSN", "CD44", "CAPN2", "EPHX2", "MDK", "SYK", "FCER1G", "SFRP1", "PRDX6", "PRDX1", "RABEP1", "SDC4", "GPNMB", "C4A", "NDUFS2", "CNN3", "SMOC1", "CTSH", "PLEC", "SNX32", "STX4"],
+    "core": "Structural Biology",
+    "fileFormat" : "pdf",
+    "category" : "TEP",
+    "last_name" : "Final"
+}
