@@ -23,16 +23,16 @@ def ingestJSON(filePath):
 # finds the folder described in the filename, and returns the syn_id of that
 def findFolderInProject(parentID, remainingPath, syn):
 
-    currentFolderName = remainingPath.split('-')[0]
+    currentFolderName = remainingPath.split('/')[0]
     currentID = syn.findEntityId(currentFolderName, parent=parentID)
 
     if currentID is None:
         return "Couldn't find the location for this path"
 
-    if len(remainingPath.split('-')) == 2:
+    if len(remainingPath.split('/')) == 2:
         return currentID
     else:
-        return findFolderInProject(currentID, '-'.join(remainingPath.split('-')[1:]), syn)
+        return findFolderInProject(currentID, '/'.join(remainingPath.split('/')[1:]), syn)
 
 
 def createFileInSynapse(pathToFile, nameInSynapse, parentID, gene, fileCreationObj, syn):
@@ -40,7 +40,7 @@ def createFileInSynapse(pathToFile, nameInSynapse, parentID, gene, fileCreationO
 
 
 def buildName(nameOfGene, nameOfCore, nameOfFormat, nameOfCategory, nameOfFile):
-    return f'Genes-{nameOfGene}-{nameOfCore.replace(" ", "_")}_Core-{nameOfCategory}-{nameOfGene}_{nameOfCategory}_{nameOfFile}.{nameOfFormat}'
+    return f'Genes/{nameOfGene}/{nameOfCore.replace(" ", "_")}_Core/{nameOfCategory}/{nameOfGene}_{nameOfCategory}_{nameOfFile}.{nameOfFormat}'
 
 
 def populate(fileCreationObj, syn):
@@ -53,14 +53,14 @@ def populate(fileCreationObj, syn):
         last_parent_id = findFolderInProject(projectId, name, syn)
 
         if last_parent_id is not None:
-            f = open(name.split('-')[-1], "x")
+            f = open(name.split('/')[-1], "x")
             f.write("kljhdsfkljdshfkljdsfs")
             f.close()
         else:
             sys.exit("Couldn't find directory")
 
-        createFileInSynapse('./'+name.split('-')[-1], name.split('-')[-1], last_parent_id, gene, fileCreationObj, syn)
-        print(f"Created file {name.split('-')[-1]} in synapse")
+        createFileInSynapse('./'+name.split('/')[-1], name.split('/')[-1], last_parent_id, gene, fileCreationObj, syn)
+        print(f"Created file {name.split('/')[-1]} in synapse")
 
 
 def preparePopulation(path, synObj=None):
